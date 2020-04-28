@@ -7,14 +7,14 @@ function fish_greeting -d "Greeting message on shell session start up"
     echo -en "       / \        \n"
     echo -en "      / _ \       " (show_date_info) "\n"
     echo -en "     |.o '.|      \n"
-    echo -en "     |'._.'|      Space vessel computer:\n"
+    echo -en "     |'._.'|       Space vessel computer:\n"
     echo -en "     |     |      " (show_os_info) "\n"
     echo -en "   ,'|  |  |`.    " (show_cpu_info) "\n"
     echo -en "  /  |  |  |  \   " (show_mem_info) "\n"
     echo -en "  |,-'--|--'-.|   " (show_net_info) "\n"
     echo ""
     set_color grey
-    echo "Have a nice trip"
+    echo "Don't F anything up today..."
     set_color normal
 end
 
@@ -100,7 +100,7 @@ function show_mem_info -d "Prints memory information"
     set --local total_memory ""
 
     if [ "$os_type" = "Linux" ]
-        set total_memory (free -h | grep "Mem" | cut -d " " -f 12)
+        set total_memory (free -h | grep Mem | sed 's/\s\+/,/g' | cut -d , -f2-)
 
     else if [ "$os_type" = "Darwin" ]
         set total_memory (system_profiler SPHardwareDataType | grep "Memory:" | cut -d ":" -f 2 | tr -d " ")
